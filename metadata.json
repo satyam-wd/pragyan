@@ -1,0 +1,8 @@
+{
+  "name": "Pragyan 2026 - Space, Quantum & Science College Fest",
+  "description": "Annual technical fest Pragyan 2026 on 12 Feb (10:00 AM - 8:00 PM). Featuring CS, Electrical, and Mechanical department events, block-wise schedules, IT Garden gaming arena, and cultural performances.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
