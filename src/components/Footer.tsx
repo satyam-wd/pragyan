@@ -100,7 +100,7 @@ export default function Footer({ setActivePage }: FooterProps) {
               </li>
               <li>
                 <button onClick={() => setActivePage('timeline')} className="hover:text-white transition-colors">
-                  Block-Wise Hourly Schedule
+                  Event Schedule
                 </button>
               </li>
               <li>
@@ -110,7 +110,7 @@ export default function Footer({ setActivePage }: FooterProps) {
               </li>
               <li>
                 <button onClick={() => setActivePage('passes')} className="hover:text-white transition-colors">
-                  My Registration Passes
+                  Registration Here
                 </button>
               </li>
             </ul>

@@ -14,9 +14,9 @@ export default function Navbar({ activePage, setActivePage, registeredCount }: N
   const navItems: { id: PageId; label: string }[] = [
     { id: 'home', label: 'Home' },
     { id: 'departments', label: 'All Events' },
-    { id: 'timeline', label: 'Block Schedule' },
+    { id: 'timeline', label: 'Event Schedule' },
     { id: 'cultural', label: 'Cultural & Gaming' },
-    { id: 'passes', label: 'Passes & Planner' },
+    { id: 'passes', label: 'Registration Here' },
   ];
 
   const handleNavClick = (page: PageId) => {
@@ -69,7 +69,7 @@ export default function Navbar({ activePage, setActivePage, registeredCount }: N
             className="flex items-center gap-2 px-4 py-2 text-xs font-semibold text-slate-900 bg-cyan-400 hover:bg-cyan-300 rounded-lg shadow-sm transition-colors cursor-pointer whitespace-nowrap shrink-0"
           >
             <Ticket className="w-3.5 h-3.5" />
-            <span>My Fest Passes</span>
+            <span>Registration Here</span>
             {registeredCount > 0 && (
               <span className="w-4 h-4 rounded-full bg-slate-900 text-cyan-300 text-[10px] font-bold flex items-center justify-center">
                 {registeredCount}

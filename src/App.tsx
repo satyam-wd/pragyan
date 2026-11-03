@@ -26,33 +26,27 @@ export default function App() {
     try {
       const saved = localStorage.getItem('pragyan_registrations_2026');
       if (saved) {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          // Keep only valid events
+          const validIds = new Set([
+            'cs-ai-mantra',
+            'cs-code-yudh',
+            'ee-robo-flyies',
+            'ee-circuit-sangram',
+            'mech-aavishkar',
+            'mech-nirman',
+            'cult-morning-music',
+            'cult-it-garden-gaming',
+            'cult-open-stage-dance',
+          ]);
+          return parsed.filter((r) => validIds.has(r.eventId));
+        }
       }
     } catch (e) {
       console.error('Failed reading localStorage', e);
     }
-    // Default initial sample registration pass
-    return [
-      {
-        regId: 'PRG26-784201',
-        eventId: 'cs-quantum-hack',
-        eventTitle: 'Qiskit Quantum Algorithms Hackathon',
-        eventType: 'department',
-        department: 'CS',
-        timeSlot: '10:30 AM – 02:00 PM',
-        venue: 'Block A (Turing Quantum Center) · Quantum Lab 301',
-        participantName: 'Arnav Sharma',
-        email: 'arnav.sharma@college.edu',
-        phone: '+91 98450 11223',
-        college: 'National Institute of Engineering',
-        rollNo: '22CS104',
-        year: '3rd Year',
-        teamName: 'Qubit Explorers',
-        teamMembers: ['Siddharth Roy', 'Sneha Patel'],
-        timestamp: new Date().toISOString(),
-        status: 'Confirmed',
-      },
-    ];
+    return [];
   });
 
   useEffect(() => {
@@ -133,8 +127,6 @@ export default function App() {
 
         {activePage === 'timeline' && (
           <DepartmentTimelinePage
-            selectedDepartment={selectedDepartment}
-            setSelectedDepartment={setSelectedDepartment}
             onOpenRegister={handleOpenRegister}
           />
         )}
@@ -149,6 +141,8 @@ export default function App() {
             onDeleteRegistration={handleDeleteRegistration}
             onAddSamplePass={handleAddSamplePass}
             setActivePage={setActivePage}
+            onOpenRegister={handleOpenRegister}
+            onRegisterSuccess={handleRegisterSuccess}
           />
         )}
       </main>

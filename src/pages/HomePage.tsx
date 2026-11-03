@@ -61,62 +61,62 @@ export default function HomePage({
       isCultural: true,
     },
     {
-      id: 'ee-solar-subsystem',
-      time: '10:30 AM – 01:00 PM',
-      title: 'CubeSat Solar Array & Power MPPT Design',
-      dept: 'Electrical',
-      venue: 'Power Electronics Lab 101',
+      id: 'cs-ai-mantra',
+      time: '10:30 AM – 01:30 PM (3h)',
+      title: 'AI Mantra (1st & 2nd Year AI Event)',
+      dept: 'Tech-Pragyan (CS)',
+      venue: 'Turing AI & Machine Learning Lab 301',
+      block: 'Block A',
+      isOpenStage: false,
+      isCultural: false,
+    },
+    {
+      id: 'ee-robo-flyies',
+      time: '10:30 AM – 01:30 PM (3h)',
+      title: 'Robo-Flyies (Open to All Students)',
+      dept: 'Elec-Pragyan (EEE)',
+      venue: 'Tesla Arena & Drone Flight Zone',
       block: 'Block B',
       isOpenStage: false,
       isCultural: false,
     },
     {
-      id: 'mech-aerospace-cad',
-      time: '10:30 AM – 01:30 PM',
-      title: 'Propulsion Aerodynamics Rocket CADathon',
-      dept: 'Mechanical',
+      id: 'mech-aavishkar',
+      time: '10:30 AM – 01:30 PM (3h)',
+      title: 'Aavishkar (Idea-Based Innovation)',
+      dept: 'Mech-Pragyan (Mech)',
       venue: 'Da Vinci CAD/CAM Center 105',
       block: 'Block C',
       isOpenStage: false,
       isCultural: false,
     },
     {
-      id: 'cs-quantum-hack',
-      time: '10:30 AM – 02:00 PM',
-      title: 'Qiskit Quantum Algorithms Hackathon',
-      dept: 'Computer Science',
-      venue: 'Quantum Computing Lab 301',
+      id: 'cs-code-yudh',
+      time: '10:30 AM – 06:30 PM (8h)',
+      title: 'Code Yudh (3rd & 4th Year Marathon)',
+      dept: 'Tech-Pragyan (CS)',
+      venue: 'Turing Algorithmic Arena 204',
       block: 'Block A',
       isOpenStage: false,
       isCultural: false,
     },
     {
-      id: 'ee-lunar-rover-circuit',
-      time: '11:00 AM – 03:00 PM',
-      title: 'Robo-Lunar Rover Autonomous Circuitry & Navigation',
-      dept: 'Electrical',
-      venue: 'Tesla Courtyard & Arena',
-      block: 'Block B',
-      isOpenStage: false,
-      isCultural: false,
-    },
-    {
-      id: 'mech-rover-chassis',
-      time: '02:00 PM – 05:00 PM',
-      title: 'Mars Rover Rocker-Bogie Suspension Live Trials',
-      dept: 'Mechanical',
-      venue: 'Heavy Fabrication Testing Arena',
+      id: 'mech-nirman',
+      time: '02:00 PM – 05:30 PM (3.5h)',
+      title: 'Nirman (Working Model Required)',
+      dept: 'Mech-Pragyan (Mech)',
+      venue: 'Heavy Fabrication & Testing Arena',
       block: 'Block C',
       isOpenStage: false,
       isCultural: false,
     },
     {
-      id: 'cs-orbital-ai',
-      time: '02:30 PM – 05:30 PM',
-      title: 'Orbital Trajectory & Satellite Imagery AI Challenge',
-      dept: 'Computer Science',
-      venue: 'High Performance Computing 204',
-      block: 'Block A',
+      id: 'ee-circuit-sangram',
+      time: '02:30 PM – 05:30 PM (3h)',
+      title: 'Circuit Sangram (Hardware War)',
+      dept: 'Elec-Pragyan (EEE)',
+      venue: 'Power Electronics Lab 101',
+      block: 'Block B',
       isOpenStage: false,
       isCultural: false,
     },
@@ -140,7 +140,7 @@ export default function HomePage({
           ? true
           : filterDept === 'Open Stage'
           ? ev.isOpenStage
-          : ev.dept === filterDept;
+          : ev.dept.startsWith(filterDept);
 
       const q = searchQuery.toLowerCase().trim();
       const matchQuery =
@@ -153,27 +153,6 @@ export default function HomePage({
       return matchDept && matchQuery;
     });
   }, [filterDept, searchQuery]);
-
-  const handleActionClick = (item: RoadmapItem) => {
-    if (item.isBreak) {
-      setActivePage('timeline');
-      return;
-    }
-
-    if (!onOpenRegister) {
-      if (item.isCultural) setActivePage('cultural');
-      else setActivePage('departments');
-      return;
-    }
-
-    if (item.isCultural) {
-      const cult = CULTURAL_GAMING_EVENTS.find((c) => c.id === item.id);
-      if (cult) onOpenRegister(cult);
-    } else {
-      const depEv = FEST_EVENTS.find((e) => e.id === item.id);
-      if (depEv) onOpenRegister(depEv);
-    }
-  };
 
   return (
     <div className="space-y-12 pb-16 pt-6 sm:pt-10">
@@ -289,7 +268,7 @@ export default function HomePage({
               <span>Pragyan 2026 Event Timings</span>
             </div>
             <h2 className="font-display text-xl sm:text-2xl font-bold text-white mt-0.5">
-              Event Roadmap Schedule
+              Event Roadmap
             </h2>
           </div>
 
@@ -299,9 +278,9 @@ export default function HomePage({
               {[
                 { id: 'All', label: 'All Events' },
                 { id: 'Open Stage', label: '★ Open Stage' },
-                { id: 'Computer Science', label: 'CS' },
-                { id: 'Electrical', label: 'Electrical' },
-                { id: 'Mechanical', label: 'Mechanical' },
+                { id: 'Tech-Pragyan', label: 'Tech-Pragyan' },
+                { id: 'Elec-Pragyan', label: 'Elec-Pragyan' },
+                { id: 'Mech-Pragyan', label: 'Mech-Pragyan' },
               ].map((tab) => {
                 const isActive = filterDept === tab.id;
                 return (
@@ -334,27 +313,21 @@ export default function HomePage({
           </div>
         </div>
 
-        {/* Clean Data Table */}
+        {/* Clean 3-Column Data Table: Timing Slot, Event Name, Venue */}
         <div className="overflow-x-auto rounded-xl border border-slate-800 bg-[#090d16] shadow-md">
           <table className="w-full text-left text-xs">
             
             {/* Table Header */}
             <thead className="bg-[#0e1322] border-b border-slate-800 text-slate-400 font-mono text-[11px] uppercase tracking-wider">
               <tr>
-                <th scope="col" className="px-4 py-3 font-semibold text-cyan-300">
+                <th scope="col" className="px-5 py-3.5 font-semibold text-cyan-300 w-44 sm:w-56">
                   Timing Slot
                 </th>
-                <th scope="col" className="px-4 py-3 font-semibold text-slate-200">
+                <th scope="col" className="px-5 py-3.5 font-semibold text-slate-200">
                   Event Name
                 </th>
-                <th scope="col" className="px-4 py-3 font-semibold text-slate-200 hidden sm:table-cell">
-                  Department / Host
-                </th>
-                <th scope="col" className="px-4 py-3 font-semibold text-slate-200 hidden md:table-cell">
-                  Venue Location
-                </th>
-                <th scope="col" className="px-4 py-3 font-semibold text-right text-slate-200">
-                  Action
+                <th scope="col" className="px-5 py-3.5 font-semibold text-slate-200">
+                  Venue
                 </th>
               </tr>
             </thead>
@@ -370,13 +343,13 @@ export default function HomePage({
                     }`}
                   >
                     {/* Timing Slot */}
-                    <td className="px-4 py-3 whitespace-nowrap font-mono-tech text-cyan-400 font-semibold text-xs">
+                    <td className="px-5 py-3.5 whitespace-nowrap font-mono-tech text-cyan-400 font-semibold text-xs">
                       {item.time}
                     </td>
 
                     {/* Event Name */}
-                    <td className="px-4 py-3">
-                      <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                    <td className="px-5 py-3.5">
+                      <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                         <span className="font-semibold text-white">
                           {item.title}
                         </span>
@@ -387,38 +360,14 @@ export default function HomePage({
                           </span>
                         )}
                       </div>
-                      <div className="sm:hidden text-[11px] text-slate-400 mt-0.5">
-                        {item.dept} · {item.venue}
-                      </div>
-                    </td>
-
-                    {/* Department */}
-                    <td className="px-4 py-3 whitespace-nowrap text-slate-300 hidden sm:table-cell">
-                      <span className="text-slate-300">
-                        {item.dept}
-                      </span>
                     </td>
 
                     {/* Venue */}
-                    <td className="px-4 py-3 text-slate-400 hidden md:table-cell">
-                      <div className="flex items-center gap-1 text-[11px]">
-                        <MapPin className="w-3 h-3 text-slate-500 shrink-0" />
-                        <span className="truncate max-w-[200px]">{item.venue}</span>
+                    <td className="px-5 py-3.5 text-slate-300">
+                      <div className="flex items-center gap-1.5 text-xs">
+                        <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+                        <span>{item.venue}</span>
                       </div>
-                    </td>
-
-                    {/* Action */}
-                    <td className="px-4 py-3 text-right whitespace-nowrap">
-                      <button
-                        onClick={() => handleActionClick(item)}
-                        className={`px-3 py-1 text-[11px] font-semibold rounded-md transition-colors cursor-pointer ${
-                          item.isOpenStage
-                            ? 'bg-purple-400 hover:bg-purple-300 text-slate-950 shadow-sm'
-                            : 'bg-cyan-400 hover:bg-cyan-300 text-slate-950 shadow-sm'
-                        }`}
-                      >
-                        Register
-                      </button>
                     </td>
                   </tr>
                 );
